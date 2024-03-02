@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/../../../1、黑马头条/day4/资料/wm_sensitive.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/../../../1、黑马头条/day5/资料/schedule数据库脚本/leadnews_schedule.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-article/src/main/resources/mapper/ApArticleMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-schedule/src/main/resources/mapper/TaskinfoMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-wemedia/src/main/resources/mapper/WmNewsMaterialMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/heima-leadnews-test/es-init/src/main/resources/mapper/ApArticleMapper.xml" dialect="MySQL" />
+  </component>
+</project>

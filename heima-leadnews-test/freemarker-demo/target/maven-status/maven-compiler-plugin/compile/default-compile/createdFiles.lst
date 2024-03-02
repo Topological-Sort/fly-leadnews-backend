@@ -1,0 +1,3 @@
+com\heima\freemarker\FreemarkerDemoApplication.class
+com\heima\freemarker\entity\Student.class
+com\heima\freemarker\controller\HelloController.class

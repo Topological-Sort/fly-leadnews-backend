@@ -1,0 +1,5 @@
+com\heima\user\UserApplication.class
+com\heima\user\service\impl\ApUserServiceImpl.class
+com\heima\user\service\IApUserService.class
+com\heima\user\mapper\ApUserMapper.class
+com\heima\user\controller\v1\ApUserController.class

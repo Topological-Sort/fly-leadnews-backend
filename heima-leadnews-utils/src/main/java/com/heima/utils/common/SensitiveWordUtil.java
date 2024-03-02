@@ -4,9 +4,7 @@ package com.heima.utils.common;
 import java.util.*;
 
 public class SensitiveWordUtil {
-
     public static Map<String, Object> dictionaryMap = new HashMap<>();
-
 
     /**
      * 生成关键词字典库
@@ -23,31 +21,26 @@ public class SensitiveWordUtil {
         Map<String, Object> map = new HashMap<>(words.size());
         // 遍历过程中当前层次的数据
         Map<String, Object> curMap = null;
-        Iterator<String> iterator = words.iterator();
 
-        while (iterator.hasNext()) {
-            String word = iterator.next();
+        for (String word : words) {
             curMap = map;
             int len = word.length();
-            for (int i =0; i < len; i++) {
-                // 遍历每个词的字
-                String key = String.valueOf(word.charAt(i));
+            for (int i = 0; i < len; i++) {
+                String key = String.valueOf(word.charAt(i)); // 遍历每个词的字符
                 // 当前字在当前层是否存在, 不存在则新建, 当前层数据指向下一个节点, 继续判断是否存在数据
                 Map<String, Object> wordMap = (Map<String, Object>) curMap.get(key);
-                if (wordMap == null) {
-                    // 每个节点存在两个数据: 下一个节点和isEnd(是否结束标志)
-                    wordMap = new HashMap<>(2);
+                if (wordMap == null) {  // 不存在，新建map
+                    wordMap = new HashMap<>(2);  // isEnd + 下一个节点对应key的map
                     wordMap.put("isEnd", "0");
                     curMap.put(key, wordMap);
                 }
                 curMap = wordMap;
                 // 如果当前字是词的最后一个字，则将isEnd标志置1
-                if (i == len -1) {
+                if (i == len - 1) {
                     curMap.put("isEnd", "1");
                 }
             }
         }
-
         dictionaryMap = map;
     }
 
@@ -59,7 +52,7 @@ public class SensitiveWordUtil {
      */
     private static int checkWord(String text, int beginIndex) {
         if (dictionaryMap == null) {
-            throw new RuntimeException("字典不能为空");
+            throw new RuntimeException("敏感词字典不能为空");
         }
         boolean isEnd = false;
         int wordLength = 0;
@@ -68,14 +61,14 @@ public class SensitiveWordUtil {
         // 从文本的第beginIndex开始匹配
         for (int i = beginIndex; i < len; i++) {
             String key = String.valueOf(text.charAt(i));
-            // 获取当前key的下一个节点
-            curMap = (Map<String, Object>) curMap.get(key);
+            curMap = (Map<String, Object>) curMap.get(key);   // 获取第i个字符的结点
             if (curMap == null) {
                 break;
             } else {
-                wordLength ++;
+                wordLength++;
                 if ("1".equals(curMap.get("isEnd"))) {
                     isEnd = true;
+                    break;
                 }
             }
         }
@@ -103,7 +96,6 @@ public class SensitiveWordUtil {
                 } else {
                     wordMap.put(word, 1);
                 }
-
                 i += wordLength - 1;
             }
         }

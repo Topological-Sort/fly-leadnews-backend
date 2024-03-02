@@ -164,7 +164,6 @@ public class ResponseResult<T> implements Serializable {
         list.add("itheima");
         responseResult.setData(list);
         System.out.println(JSON.toJSONString(responseResult));
-
     }
 
 }

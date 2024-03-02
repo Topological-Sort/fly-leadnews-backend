@@ -2,7 +2,7 @@ package com.heima.model.common.dtos;
 
 import java.io.Serializable;
 
-public class PageResponseResult extends ResponseResult implements Serializable {
+public class PageResponseResult<T> extends ResponseResult<T> implements Serializable {
     private Integer currentPage;
     private Integer size;
     private Integer total;

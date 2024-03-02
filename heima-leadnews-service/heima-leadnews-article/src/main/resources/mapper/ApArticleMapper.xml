@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heima.article.mapper.ApArticleMapper">
+
+
+    <select id="queryArticles" resultType="com.heima.model.article.pojos.ApArticle"
+            parameterType="com.heima.model.article.dtos.ArticleHomeDto">
+        select aa.*
+        from ap_article aa
+        left join ap_article_config aap on aap.article_id = aa.id
+        <where>
+            and aap.is_delete != 1
+            and aap.is_down != 1
+            <if test="type != null and type == 1">
+                and aa.publish_time <![CDATA[<]]> #{dto.minBehotTime}
+            </if>
+            <if test="type != null and type == 2">
+                and aa.publish_time <![CDATA[>]]> #{dto.maxBehotTime}
+            </if>
+            <if test="dto.tag != '__all__'">
+                and aa.channel_id = #{dto.tag}
+            </if>
+        </where>
+        order by aa.publish_time desc
+        limit #{dto.size}
+    </select>
+</mapper>
