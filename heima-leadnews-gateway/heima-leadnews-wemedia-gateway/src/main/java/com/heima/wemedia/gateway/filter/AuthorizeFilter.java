@@ -1,7 +1,6 @@
 package com.heima.wemedia.gateway.filter;
 
-
-import com.heima.wemedia.gateway.util.AppJwtUtil;
+import com.heima.wemedia.gateway.utils.AppJwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +31,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
 
         //3.获取token
         String token = request.getHeaders().getFirst("token");
+
         //4.判断token是否存在
         if(StringUtils.isBlank(token)){
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -49,9 +49,6 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
             }
             //获得token解析后中的用户信息(filter1(校验token) ---(userId)--> filter2(接收userId))
             Object userId = claimsBody.get("id");
-            log.info(StringUtils.repeat("-", 100));
-            log.info("App GlobalFilter 传递 userId = {}", userId);
-            log.info(StringUtils.repeat("-", 100));
             //在header中添加新的信息
             ServerHttpRequest serverHttpRequest = request.mutate()
                     .headers(httpHeaders -> {

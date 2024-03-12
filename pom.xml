@@ -19,6 +19,8 @@
         <module>heima-file-starter</module>
         <module>heima-leadnews-test/any-test</module>
         <module>heima-leadnews-test/kafka-demo</module>
+        <module>heima-leadnews-service/heima-leadnews-behavior</module>
+        <module>heima-leadnews-test/xxljob-demo</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->

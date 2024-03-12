@@ -100,6 +100,6 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
         //3.删除
         mongoTemplate.remove(Query.query(Criteria.where("id").is(dto.getId())
                 .and("userId").is(user.getId())), ApUserSearch.class);
-        return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+        return ResponseResult.okResult(null);
     }
 }

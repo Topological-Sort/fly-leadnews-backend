@@ -16,7 +16,6 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/heima-leadnews-gateway/heima-leadnews-app-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/heima-leadnews-utils/untitled/pom.xml" />
       </set>
     </option>

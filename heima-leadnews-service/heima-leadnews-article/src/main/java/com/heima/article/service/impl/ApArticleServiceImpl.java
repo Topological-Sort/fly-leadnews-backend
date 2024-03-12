@@ -1,6 +1,7 @@
 package com.heima.article.service.impl;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.heima.article.mapper.ApArticleConfigMapper;
 import com.heima.article.mapper.ApArticleContentMapper;
@@ -11,17 +12,20 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.common.constants.ArticleConstants;
 import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.article.dtos.ArticleHomeDto;
+import com.heima.model.article.dtos.DateTimeDto;
 import com.heima.model.article.pojos.ApArticle;
 import com.heima.model.article.pojos.ApArticleConfig;
 import com.heima.model.article.pojos.ApArticleContent;
+import com.heima.model.article.vos.HotArticleVo;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
-import org.apache.commons.net.nntp.Article;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +51,8 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     ApArticleContentMapper articleContentMapper;
     @Resource
     ArticleFreemarkerService articleFreemarkerService;
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
 
     /**
      * 根据参数加载文章列表
@@ -104,5 +110,21 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         //异步调用 生成静态文件上传到minio中
         articleFreemarkerService.buildArticleToMinIO(article, dto.getContent());
         return ResponseResult.okResult(article.getId());
+    }
+
+    @Override
+    public ResponseResult<List<ApArticle>> getAll(LocalDateTime dateTime) {
+        return ResponseResult.okResult(articleMapper.getAll(dateTime));
+    }
+
+    @Override
+    public ResponseResult load2(Short loadtypeLoadMore, ArticleHomeDto dto, boolean firstPage) {
+        if(firstPage){
+            String Key = ArticleConstants.HOT_ARTICLE_FIRST_PAGE + dto.getTag();
+            String res = stringRedisTemplate.opsForValue().get(Key);
+            List<HotArticleVo> r = JSON.parseArray(res, HotArticleVo.class);
+            return ResponseResult.okResult(r);
+        }
+        return this.load(loadtypeLoadMore, dto);
     }
 }

@@ -2,9 +2,11 @@ package com.heima.article.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.heima.model.article.dtos.ArticleHomeDto;
+import com.heima.model.article.dtos.DateTimeDto;
 import com.heima.model.article.pojos.ApArticle;
 import io.lettuce.core.dynamic.annotation.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,8 +18,7 @@ import java.util.List;
  * @since 2024-02-17
  */
 public interface ApArticleMapper extends BaseMapper<ApArticle> {
-
-
     public List<ApArticle> queryArticles(@Param("dto") ArticleHomeDto dto, @Param("type") Short type);
 
+    public List<ApArticle> getAll(@Param("dateTime") LocalDateTime dateTime);
 }

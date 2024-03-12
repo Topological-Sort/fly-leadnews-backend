@@ -48,7 +48,7 @@ public class WmNewsController {
         log.info(StringUtils.repeat("-", 100));
         log.info("【Wm】上传文章(并异步审核)：{}", dto);
         log.info(StringUtils.repeat("-", 100));
-        return ResponseResult.okResult(newsService.submitNews(dto));  // 提交并异步审核文章
+        return newsService.submitNews(dto);  // 提交并异步审核文章
     }
 
     @PostMapping("/down_or_up")

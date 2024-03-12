@@ -31,7 +31,7 @@ public class ApAssociateWordsServiceImpl implements ApAssociateWordsService {
      * @return
      */
     @Override
-    public ResponseResult findAssociate(UserSearchDto userSearchDto) {
+    public ResponseResult<List<ApAssociateWords>> findAssociate(UserSearchDto userSearchDto) {
         //1 参数检查
         if(userSearchDto == null || StringUtils.isBlank(userSearchDto.getSearchWords())){
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);

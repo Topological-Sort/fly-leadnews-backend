@@ -56,9 +56,6 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
                 return ResponseResult.errorResult(LOGIN_PASSWORD_ERROR);
             }
             // 3.返回jwt
-            log.info(StringUtils.repeat("-", 100));
-            log.info("app login userId = {}", apUser.getId());
-            log.info(StringUtils.repeat("-", 100));
             Map<String, Object> map = new HashMap<>();
             map.put("token", AppJwtUtil.getToken(apUser.getId().longValue()));
             apUser.setSalt("");

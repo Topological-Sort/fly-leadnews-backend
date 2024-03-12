@@ -24,4 +24,18 @@
         order by aa.publish_time desc
         limit #{dto.size}
     </select>
+
+    <select id="getAll" resultType="com.heima.model.article.pojos.ApArticle">
+        select article.*
+        from ap_article article
+        left join ap_article_config config
+            on article.id = config.article_id
+        <where>
+            and config.is_delete != 1
+            and config.is_down != 1
+            <if test="_parameter != null">
+                and article.publish_time <![CDATA[>=]]> #{_parameter}
+            </if>
+        </where>
+    </select>
 </mapper>

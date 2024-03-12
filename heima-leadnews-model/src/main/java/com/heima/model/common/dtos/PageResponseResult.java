@@ -17,7 +17,6 @@ public class PageResponseResult<T> extends ResponseResult<T> implements Serializ
 
     }
 
-
     public int getCurrentPage() {
         return currentPage;
     }

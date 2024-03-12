@@ -77,7 +77,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
                         .like(StringUtils.isNotBlank(dto.getKeyword()), WmNews::getTitle, "%" + dto.getKeyword() + "%")
                         .orderByDesc(WmNews::getPublishTime));
         if(result == null)
-            return ResponseResult.okResult("无记录");
+            return ResponseResult.errorResult(AppHttpCodeEnum.AP_USER_DATA_NOT_EXIST, "无记录");
         PageResponseResult<List<WmNews>> res = new PageResponseResult<>(dto.getPage(), dto.getSize(), (int) result.getTotal());
         res.setData(result.getRecords());
         return res;
@@ -101,7 +101,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         }
         saveOrUpdateNews(news, WmThreadLocalUtils.getUser().getId());  // save后获取文章id
         if(dto.getStatus().equals((short)0)){  // 0：草稿，直接结束
-            return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+            return ResponseResult.okResult(null);
         }
         Integer newsId = news.getId();
         /* 3.提取素材图片 (两种图片：images / content -| [{ type: "image", value: ~ }, ...]) */
@@ -146,7 +146,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
             kafkaTemplate.send(WmNewsMessageConstants.WM_NEWS_UP_OR_DOWN_TOPIC,
                     JSON.toJSONString(map));
         }
-        return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+        return ResponseResult.okResult(null);
     }
 
     private void saveOrUpdateNews(WmNews news, Integer userId) {
