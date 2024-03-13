@@ -5,7 +5,6 @@
 ### 3. heima-leadnews-feign-api (NoApp)
 新增wemedia、user的跨服务调用，主要用于admin和behavior模块
 ### 4. heima-leadnews-gateway: 
-网关层
   #### -| heima-leanews-admin-gateway: 
 审核管理端网关
   #### -| heima-leanews-app-gateway: 
