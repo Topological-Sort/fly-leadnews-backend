@@ -19,24 +19,24 @@
     (2) 添加用户/自媒体人/管理员信息到请求头部，再转发请求到相应微服务 <br> 
 ### heima-leanews-service:
 ### （以下为用户端）
-#### -| heima-leanews-user: 【用户管理】
+### -| heima-leanews-user: 【用户管理】
   0. 拦截器：拦截从网关转发来的请求，从该请求头获取到用户信息（主要是用户id） <br> 
   1. 用户登录：登录后，签发加密 token 到前端 localStorage，与网关层 GlobalFilter 进行协同工作 <br> 
   2. 用户关注：使用 Redis-ZSET 实现，可以方便地按关注时间降序排列，获取用户共同关注 <br> 
   3. 用户管理（用户管理写成了feign，由后台管理端调用。但其实可以直接写在该模块，由前端在**后台管理端**调用） <br> 
-#### -| heima-leanews-article: 【文章管理】
+### -| heima-leanews-article: 【文章管理】
   1. 文章加载：分页加载、推荐页热门文章加载 <br> 
   2. 文章上下架(Kafka: wemedia --> article)：在**自媒体(wemedia)微服务**，自媒体人点击文章下架后，发送消息通知article微服务修改该文章状态为已下线 <br> 
   3. 文章存储(feign: wemedia --> article)：在**自媒体(wemedia)微服务**，新闻审核通过后，存储成文章 --> 通过Freemarker生成页面 --> 存在MinIO中供用户浏览 （同时使用 Kafka 发送消息到**文章搜索(search)微服务**，使 ES 生成索引供文章搜索） <br> 
-#### -| heima-leanews-search: 【文章搜索】
+### -| heima-leanews-search: 【文章搜索】
   1. 文章搜索：使用 ES ，基于文章标题、内容中的关键词索引搜索文章 <br> 
   2. 搜索联想词：使用 MongoDB 存储搜索联想词，用户搜索时模糊匹配查找联想词 <br> 
   3. 搜索历史记录：使用 MongoDB 存储、删除用户搜索历史记录 <br> 
-#### -| heima-leanews-behavior: 【用户行为】
+### -| heima-leanews-behavior: 【用户行为】
   1. 使用 Redis 记录浏览、点赞、不喜欢、收藏等用户行为 <br> 
   2. 文章热度实时计算(Kafka: behavior --> article)：每当有用户行为，对该篇文章得分进行重新计算，并刷新Redis中的热门文章 <br> 
 ### （以下为自媒体端）
-#### -| heima-leanews-wemedia: 【自媒体新闻管理】
+### -| heima-leanews-wemedia: 【自媒体新闻管理】
   0. 拦截器：拦截从网关转发来的请求，从该请求头获取到自媒体人信息（主要是自媒体人id） <br> 
   1. 自媒体人登录：登录后，签发加密 token 到前端 localStorage，与网关层 GlobalFilter 进行协同工作 <br> 
   2. 频道管理：自媒体端只能搜索频道，**后台管理端**可以增删改查频道 <br> 
@@ -48,7 +48,7 @@
     (1) 存储延迟审核任务到mysql、redis，再由**schedule微服务**进行定时刷新 <br> 
     (2) 从 redis 队列中取需要执行的任务，进行新闻审核，审核通过后通过 feign 远程调用**article微服务**上架文章 <br> 
 ### （以下为后台管理端）
-#### -| heima-leanews-admin: 【后台管理端】
+### -| heima-leanews-admin: 【后台管理端】
   0. 拦截器：拦截从网关转发来的请求，从该请求头获取到管理员信息（主要是管理员id） <br> 
   1. 管理员登录：登录后，签发加密 token 到前端 localStorage，与网关层 GlobalFilter 进行协同工作 <br> 
   2. 用户管理（实际位于**用户管理(user)微服务**） <br> 
@@ -56,7 +56,7 @@
   4. 审核敏感词管理 <br> 
   5. 文章管理 <br> 
 ### （以下为定时任务）
-#### -| heima-leanews-schedule: 【定时任务】
+### -| heima-leanews-schedule: 【定时任务】
   1. 新闻延迟审核：定时刷新任务：从 Mysql(>5分钟) --> Redis-ZSET(<=5分钟) --> Redis-LIST(<=当前时间) <br> 
   2. 热门文章定时刷新：每小时重新计算一天内的文章得分，刷新热门文章到Redis <br> 
 
