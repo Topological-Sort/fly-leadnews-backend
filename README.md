@@ -1,3 +1,6 @@
+## 各微服务关系图
+![飞翔头条](https://github.com/Topological-Sort/fly-leadnews-backend/assets/115573611/609edabb-dcad-4338-a00b-68ca976185ea)
+
 ## 仿今日头条项目V2.0：
 （仅备注新增/改动内容，NoApp表示该模块为非启动模块）
 ### 1. heima-file-starter (NoApp)
