@@ -2,13 +2,13 @@
 ![飞翔头条](https://github.com/Topological-Sort/fly-leadnews-backend/assets/115573611/674d40a8-334c-41e7-9815-f386e1943357)
 
 ## 各微服务主要功能说明：(NoApp表示非启动模块)
-### file-starter (NoApp): 【MinIO对象存储工具启动类】
-### common (NoApp): 【存放常量类、工具类、swagger配置等】
-### feign-api (NoApp): 【定义feign跨服务调用接口】
-### model (NoApp): 【存放dto、entity、vo类】
-### utils (NoApp): 【存放各种工具类】
-### test (NoApp): 【各类型测试类】 <br> 
-### gateway: 
+#### file-starter (NoApp): 【MinIO对象存储工具启动类】
+#### common (NoApp): 【存放常量类、工具类、swagger配置等】
+#### feign-api (NoApp): 【定义feign跨服务调用接口】
+#### model (NoApp): 【存放dto、entity、vo类】
+#### utils (NoApp): 【存放各种工具类】
+#### test (NoApp): 【各类型测试类】 <br> 
+### gateway: 【三端微服务网关】
 #### -| app-gateway: 【用户端网关】
 #### -| wemedia-gateway: 【自媒体端网关】
 #### -| admin-gateway: 【后台管理端网关】
@@ -17,7 +17,7 @@
   2. **GlobalFilter**： <br> 
     (1) 校验token，每个前端请求都必须携带token头部，token校验通过后才能转发到对应微服务接口，该token经过特定字符串和加密算法加密保障安全性 <br> 
     (2) 添加用户/自媒体人/管理员信息到请求头部，再转发请求到相应微服务 <br> 
-### service:
+### service: 【微服务进程】
 ### （以下为用户端）
 ### -| user: 【用户管理】
   0. **拦截器**：拦截从网关转发来的请求，从该请求头获取到用户信息（主要是用户id） <br> 
