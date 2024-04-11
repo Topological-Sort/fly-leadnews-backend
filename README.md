@@ -1,5 +1,5 @@
 ## 各微服务关系图
-![飞翔头条](https://github.com/Topological-Sort/fly-leadnews-backend/assets/115573611/674d40a8-334c-41e7-9815-f386e1943357)
+![飞翔头条](https://github.com/Topological-Sort/fly-leadnews-backend/assets/115573611/939db3af-0e98-4fc5-b482-8aae44044863)
 
 ## 各微服务主要功能说明：(NoApp表示非启动模块)
 #### file-starter (NoApp): 【MinIO对象存储工具启动类】
